@@ -1,7 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-
-
+#include <logic.h>
+#include <QQmlContext>
+#include <QQuickView>
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -16,6 +17,14 @@ int main(int argc, char *argv[])
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
+
+    //QQuickView view;
+    Logic appLogic;
+    engine.rootContext()->setContextProperty("logic", &appLogic);
+    //view.rootContext()->setContextProperty("v", &appLogic);
+    //view.setSource(QUrl::fromLocalFile("MyItem.qml"));
+    //view.show();
+
     engine.load(url);
 
     return app.exec();

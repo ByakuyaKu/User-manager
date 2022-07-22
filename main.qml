@@ -8,113 +8,217 @@ Window {
     id: window
     color:"lightgray"
     width: 640
-    height: 480
+    height: 640
     visible: true
     title: qsTr("User manager")
+    //    ScrollView {
+    //        id: view
+    //        width: 200
+    //        height: 200
+    //clip: true
+    //minimumHeight: 640
+    //minimumWidth: 640
+    ScrollView{
+        anchors.fill: parent
 
-    Rectangle {
-        id: rect
+    ScrollBar.vertical: ScrollBar {}
+    ButtonGroup {
+        //buttons: column.children
+        id: btnGroup
+    }
 
+    Row {
+        id: row
+        anchors.top: parent.top
         anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.margins: 20
+        anchors.margins: 10
+        //anchors.topMargin: 10
+        //anchors.leftMargin: 10
+        width: parent.width-row.anchors.margins*2/7
+        spacing: 5
+        Button {
+            height: 30
+            //width: (parent.width-row.anchors.margins*2-row.spacing*6)/7
+            text: qsTr("DAB")
+        }
 
-        width: 150
-        height: window.height - rect.anchors.margins*2
+        Button {
+            //width: (parent.width-row.anchors.margins*2-row.spacing*6)/7
+            height: 30
+            text: qsTr("FM")
+        }
 
-        color: "white"
-
-        ColumnLayout {
-            spacing: 1
-            CustomTabBtn {
-                text: qsTr("Users")
-                width: rect.width
-                height: 30
-            }
-            CustomTabBtn {
-                text: qsTr("Local users")
-                width: rect.width
-                height: 30
-            }
-            CustomTabBtn {
-                text: qsTr("...")
-                width: rect.width
-                height: 30
-            }
+        Button {
+            //width: (parent.width-row.anchors.margins*2-row.spacing*6)/7
+            height: 30
+            text: qsTr("AM")
+        }
+        Button {
+            //width: (parent.width-row.anchors.margins*2-row.spacing*6)/7
+            height: 30
+            text: qsTr("AM")
+        }
+        Button {
+            width: (parent.width-row.anchors.margins*2-row.spacing*6)/7
+            height: 30
+            text: qsTr("AM")
+        }
+        Button {
+            //width: (parent.width-row.anchors.margins*2-row.spacing*6)/7
+            height: 30
+            text: qsTr("AM")
+        }
+        Button {
+            //width: (parent.width-row.anchors.margins*2-row.spacing*6)/7
+            height: 30
+            text: qsTr("AM")
         }
     }
 
-    Rectangle {
-        id: userList
+    TabBar {
+        id: bar
+        width: parent.width
+        anchors.top: row.bottom
+        anchors.left: window.left
+        anchors.topMargin: 10
 
-        anchors.left: rect.right
-        anchors.top: parent.top
-        anchors.margins: 20
-
-        width: 150
-        height: window.height - userList.anchors.margins*2
-
-        color: "white"
-
-        ColumnLayout {
-            spacing: 1
-            CustomTabBtn {
-                text: qsTr("User 1")
-                width: userList.width
-                height: 30
-            }
-            CustomTabBtn {
-                text: qsTr("user 2")
-                width: userList.width
-                height: 30
-            }
-            CustomTabBtn {
-                text: qsTr("...")
-                width: userList.width
-                height: 30
-            }
-            CustomTabBtn {
-                text: qsTr("...")
-                width: userList.width
-                height: 30
-            }
-            CustomTabBtn {
-                text: qsTr("...")
-                width: userList.width
-                height: 30
-            }
-            CustomTabBtn {
-                text: qsTr("...")
-                width: userList.width
-                height: 30
-            }
-            CustomTabBtn {
-                text: qsTr("...")
-                width: userList.width
-                height: 30
-            }
-            CustomTabBtn {
-                text: qsTr("...")
-                width: userList.width
-                height: 30
-            }
+        TabButton {
+            text: qsTr("Users")
+            implicitWidth: 100
+            width: 100
+        }
+        TabButton {
+            implicitWidth: 100
+            text: qsTr("Groups")
+            width: 100
         }
     }
 
-    Rectangle {
-        id: userInfo
+    StackLayout {
+        width: parent.width
+        currentIndex: bar.currentIndex
+        Item {
+            id: usersTab
+            Text {
+                id: test
+                text: logic.test()
+            }
+            Text {
+                id: ssss
+                text: qsTr(logic.getLocalUsers()[10])
+                color: "black"
+            }
+        }
 
-        anchors.left: userList.right
-        anchors.top: parent.top
-        anchors.margins: 20
 
-        implicitWidth: window.width - userList.width - rect.width - rect.anchors.margins - userList.anchors.margins - userInfo.anchors.margins*2
-        width: window.width - userList.width - rect.width - rect.anchors.margins - userList.anchors.margins - userInfo.anchors.margins*2
-        height: window.height - userInfo.anchors.margins*2
+        Item {
+            id: groupsTab
+            Rectangle {
+                id: userListRect
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.margins: 20
+                anchors.topMargin: 110
 
-        color: "white"
+                width: window.width-anchors.margins*2
+                height: window.height - anchors.topMargin-anchors.margins
+                //width: 300
+                //height: 300
+
+                border.color: "lightblue"
+                border.width: 0.5
+                radius: 5
+                color: "white"
+                //property string textt: logic.getLocalUsers()
+                Text {
+                    id: sas
+                    text: qsTr(logic.getLocalUsers())
+                    color: "black"
+                }
+                ListView {
+                    id: userList
+                    //anchors.fill: parent
+                    width: parent.width-2
+                    height: parent.height-2
+                    anchors.centerIn: parent
+                    model: userListModel
+                    //highlight: Rectangle { color: "lightblue"; radius: 5 }
+                    focus: true
+                    spacing: -1
+                    keyNavigationEnabled: true
+                    ScrollBar.vertical: ScrollBar {}
+                    delegate: Component {
+                        Rectangle {
+                            id: wrapper
+                            width: userList.width
+                            height: 20
+                            color: ListView.isCurrentItem ? "lightblue" : "white"
+                            Text {
+                                //id: contactInfo
+                                text: UID + "   " + RegistratorName + "   " +  FullName + "   " +  HomeDir + "   " +  LoginEngine
+                                color: "black"
+                                //anchors.centerIn: parent
+                            }
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onClicked:
+                                {
+                                    userList.currentIndex = index
+                                    //itemClicked();
+                                    }
+                                }
+                        }
+                    }
 
 
+                    ListModel {
+                        id: userListModel
+
+                        ListElement {
+                            UID:'efg'
+                            RegistratorName:'456'
+                            FullName:'456'
+                            HomeDir:'456'
+                            LoginEngine:'456'
+                        }
+                        ListElement {
+                            UID:'efg'
+                            RegistratorName:'456'
+                            FullName:'456'
+                            HomeDir:'456'
+                            LoginEngine:'456'
+                        }
+                        ListElement {
+                            UID:'efg'
+                            RegistratorName:'456'
+                            FullName:'456'
+                            HomeDir:'456'
+                            LoginEngine:'456'
+                        }
+                        ListElement {
+                            UID:'efg'
+                            RegistratorName:'456'
+                            FullName:'456'
+                            HomeDir:'456'
+                            LoginEngine:'456'
+                        }
+                        ListElement {
+                            UID:'efg'
+                            RegistratorName:'456'
+                            FullName:'456'
+                            HomeDir:'456'
+                            LoginEngine:'456'
+                        }
+                    }
+                }
+            }
+        }
     }
+    Connections {
+            target: logic
+            //onDataChanged: console.log("The application data changed!")
+            //onTest()
+        }
 }
-
+}
