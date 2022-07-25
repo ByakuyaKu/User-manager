@@ -101,11 +101,11 @@ Window {
             id: usersTab
             Text {
                 id: test
-                text: logic.test()
+                //text: user.getLocalUsers()[0].LoginEngine
             }
             Text {
                 id: ssss
-                text: qsTr(logic.getLocalUsers()[10])
+                //text: qsTr(user.getLocalUsers()[0].UID)
                 color: "black"
             }
         }
@@ -132,7 +132,7 @@ Window {
                 //property string textt: logic.getLocalUsers()
                 Text {
                     id: sas
-                    text: qsTr(logic.getLocalUsers())
+                    //text: qsTr(logic.getLocalUsers())
                     color: "black"
                 }
                 ListView {

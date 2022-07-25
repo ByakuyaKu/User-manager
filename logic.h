@@ -1,7 +1,7 @@
 #ifndef LOGIC_H
 #define LOGIC_H
 #include <QProcess>
-//#include <QObject>
+#include <QObject>
 
 class Logic : public QObject
 {

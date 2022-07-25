@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <logic.h>
+#include <user.h>
 #include <QQmlContext>
 #include <QQuickView>
 int main(int argc, char *argv[])
@@ -20,11 +21,13 @@ int main(int argc, char *argv[])
 
     //QQuickView view;
     Logic appLogic;
+
     engine.rootContext()->setContextProperty("logic", &appLogic);
     //view.rootContext()->setContextProperty("v", &appLogic);
     //view.setSource(QUrl::fromLocalFile("MyItem.qml"));
     //view.show();
-
+    User user;
+    engine.rootContext()->setContextProperty("user", &user);
     engine.load(url);
 
     return app.exec();
