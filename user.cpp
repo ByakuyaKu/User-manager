@@ -60,18 +60,22 @@ QList<User*> User::ParseLocalUsers(QStringList &usersList){
     return parsedUsersList;
 }
 
-//template <typename T>
-QList<QVariant> User::ToQVariantList(const QList<User*> &list){
+//User::operator QVariant() const{
+//    return QVariant(QMetaType::User, this);
+//}
 
+template <typename T>
+QList<QVariant> User::ToQVariantList(const QList<T*> &list){
     QVariantList convertedList;
     for(int i = 0; i < list.length(); i++){
-     //foreach( const T &item, list )
-        //QVariant tmp;
+        qInfo() << i;
+        //QVariant tmp = tmp.setValue(QVariant::fromValue(list[i]));//QVariant::fromValue(list[i]);
+        //QVariant(list[i]);
         convertedList << QVariant::fromValue(list[i]);
-        //convertedList << tmp.setValue(list[i]);
         //qInfo() << (convertedList[i]);
     }
-         //convertedList << QVariant::fromValue(item);
-    //qInfo() << convertedList.length();
+
+    qInfo() << convertedList.length();
     return convertedList;
 }
+

@@ -101,7 +101,7 @@ Window {
             id: usersTab
             Text {
                 id: test
-                //text: user.getLocalUsers()[0].LoginEngine
+                //text: user.getLocalUsers()
             }
             Text {
                 id: ssss

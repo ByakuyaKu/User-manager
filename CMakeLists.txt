@@ -19,7 +19,9 @@ set(PROJECT_SOURCES
         logic.cpp
         user.cpp
         #usersmodel.cpp
-        qml.qrc    
+        stringlistmodel.cpp
+        Model/variantmaptablemodel.h
+        Model/variantmaptablemodel.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

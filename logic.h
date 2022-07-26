@@ -2,7 +2,7 @@
 #define LOGIC_H
 #include <QProcess>
 #include <QObject>
-
+#include <QMetaType>
 class Logic : public QObject
 {
     Q_OBJECT
@@ -16,6 +16,6 @@ private:
 QProcess *commandLineP;
 };
 
-
+//Q_DECLARE_METATYPE(Logic)
 
 #endif // LOGIC_H
