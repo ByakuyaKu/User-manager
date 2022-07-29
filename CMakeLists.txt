@@ -20,8 +20,8 @@ set(PROJECT_SOURCES
         user.cpp
         #usersmodel.cpp
         stringlistmodel.cpp
-        Model/variantmaptablemodel.h
-        Model/variantmaptablemodel.cpp
+        #Model/variantmaptablemodel.h
+        #Model/variantmaptablemodel.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
